@@ -1,1 +1,22 @@
- Grab={};Grab.check=function(e){if(e===null){API.chatLog("Autograb: There's no DJ",true);Grab.djname=null}else if(API.getDJ().username!=API.getUser().username){Grab.grab();Grab.djname=API.getDJ().username}else{if(Grab.djname!=API.getUser().username){API.chatLog("Autograb: You are now DJ",false);Grab.djname=API.getDJ().username}}};Grab.welcome=function(){API.chatLog("Autograb by @-Frosty enabled!",true);API.chatLog("Don't forget about autowoot!", true);};Grab.grab=function(){$(".icon-curate").click();$($(".curate").children(".menu").children().children()[0]).mousedown()};Grab.welcome();Grab.check();API.on(API.DJ_ADVANCE,Grab.check);
+// Start by default
+
+API.chatLog("Creator: WayzRG. Source: http://wp.me/P4pmFc-F. Command: /start, /stop", true);
+API.on(API.CHAT_COMMAND, command);
+API.on(API.DJ_ADVANCE, grab);
+
+function grab() {
+        setTimeout(function(){$(".icon-curate").click()}, 1);
+        setTimeout(function(){$($(".curate").children(".menu").children().children()[0]).mousedown()}, 1);
+        API.chatLog(API.getMedia().title + " will be grab in 60 seconds");
+}
+
+function command(value) {
+    if (value == "/start") {
+        API.on(API.DJ_ADVANCE, grab);
+        API.chatLog("Auto-Grab was start", alert);
+    }
+    else if (value == "/stop") {
+        API.off(API.DJ_ADVANCE, grab);
+        API.chatLog("Auto-Grab was stop", alert);
+    }
+}
